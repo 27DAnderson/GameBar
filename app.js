@@ -89,14 +89,12 @@ app.get('/2048', isAuthenticated, (req, res) => {
                 <summary class="summaries">Changelog</summary>
                 <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
                 <div class="changelog-header">v1.0.0 - 2048 Released - 2/06/2026</div>
-                <li class="innerli">Initial release of 2048 on Gamebar (No documented development updates)</li>
-                <div class="changelog-header">v1.1.0 - Game Page Added - 2/12/2026</div>
-                <li class="innerli">Created 2048 game page with description, changelog, and game info, rules, etc.</li>
-                <div class="changelog-header">v1.1.1 - Optimization change - 2/14/2026</div>
+                <li class="innerli">Initial release of 2048 on Gamebar</li>
+                <div class="changelog-header">v1.0.1 - Optimization change - 2/14/2026</div>
                 <li class="innerli">Removed unnecessary game loop</li>
             </details>`,
         game: '2048',
-        preview: `<img src="/2048/2048preview.png" alt="2048 preview" height="500">`,
+        preview: `<img id="previewImg" src="/2048/2048preview.png" alt="2048 preview" height="500">`,
         playButton: `<button id="button" onclick="window.location.href='/game_2048'">Play</button>`,
         guide: `Use the arrow keys to move the tiles. When two tiles with the same number touch, they merge into a
                 greater one! The goal is to create a tile with the number 2048. Be careful, though: if the board fills
@@ -146,17 +144,17 @@ app.get('/snake', isAuthenticated, (req, res) => {
                 <li class="innerli">Initial release of Snake on Gamebar</li>
             </details>`,
         game: 'Snake',
-        preview: `<img src="/snake/snakepreview.png" alt="Snake Logo" height="500">`,
+        preview: `<img id="previewImg" src="/snake/snakepreview.png" alt="Snake Preview" height="500">`,
         playButton: `<button id="button" onclick="window.location.href='/game_snake'">Play</button>`,
         guide: `Use the arrow keys to move the snake in the desired direction. Eat the red apples to grow longer, but be careful not to run into your own tail or the walls!`,
         specifics: ` <details>
                 <summary class="summaries">Specifics</summary>
                 <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
                 <h3>Keybinds:</h3>
-                <li class="innerli">[▲] 'ArrowUp' - Move snake up</li>
-                <li class="innerli">[▼] 'ArrowDown' - Move snake down</li>
-                <li class="innerli">[◄] 'ArrowLeft' - Move snake left</li>
-                <li class="innerli">[►] 'ArrowRight' - Move snake right</li>
+                <li class="innerli">[▲] 'ArrowUp' / [W] 'w' - Move snake up</li>
+                <li class="innerli">[▼] 'ArrowDown' / [S] 's' - Move snake down</li>
+                <li class="innerli">[◄] 'ArrowLeft' / [A] 'a' - Move snake left</li>
+                <li class="innerli">[►] 'ArrowRight' / [D] 'd' - Move snake right</li>
 
                 <h3>Wordified Logic:</h3>
                 <li class="innerli">Upon start: Difficulty and map size are selected, then game loop begins. Canvas is drawn and redrawn every frame (background, snake, apple, and score)</li>
@@ -172,12 +170,41 @@ app.get('/snake', isAuthenticated, (req, res) => {
 }
 );
 
+app.get('/stack', isAuthenticated, (req, res) => {
+    const data = {
+        description: `Based on the mobile game, this singleplayer game challenges player's timing and reaction time abilities with the mission of creating as high of a tower as possible, as mistakes make that goal harder. <br><br> This project is the third completed GameBar game, and the quickest one completed yet, being finished in just a couple days.`,
+        developer: 'Kris Bowman',
+        changelog: `<details>
+                <summary class="summaries">Changelog</summary>
+                <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
+                <div class="changelog-header">v1.0.0 - Stack Released- 2/14/2026</div>
+                <li class="innerli">Initial release of Stack on Gamebar</li>
+            </details>`,
+        game: 'Stack',
+        preview: `<img id="previewImg" src="/stack/stackpreview.png" alt="Stack Preview" height="500">`,
+        playButton: `<button id="button" onclick="window.location.href='/game_stack'">Play</button>`,
+        guide: `Select your difficulty and press the spacebar to drop the moving block as evenly onto the stack as possible. The more unevenly you drop it, the smaller the next block will be, making it harder to stack. If you miss the stack entirely, it's game over! Try to stack as high as possible!`,
+        specifics: ` <details>
+                <summary class="summaries">Specifics</summary>
+                <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
+                <h3>Keybinds:</h3>  
+                <li class="innerli">[ ________ ] 'Space' - Drop the moving block</li>  
+                </details>`
+    }
+    res.render('page', { user: req.session.user, pageName: 'Gamebar', version: 'v0.1.7', data: data });
+}
+);
+
 app.get('/game_2048', isAuthenticated, (req, res) => {
     res.render('games/2048/game_2048', { user: req.session.user, pageName: '2048', version: 'v1.1.1' });
 });
 
 app.get('/game_snake', isAuthenticated, (req, res) => {
     res.render('games/snake/game_snake', { user: req.session.user, pageName: 'Snake', version: 'v1.0.0' });
+});
+
+app.get('/game_stack', isAuthenticated, (req, res) => {
+    res.render('games/stack/game_stack', { user: req.session.user, pageName: 'Stack', version: 'v1.0.0' });
 });
 
 app.get('/logout', (req, res) => {

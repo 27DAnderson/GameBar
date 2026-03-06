@@ -14,7 +14,7 @@
             ::-webkit-scrollbar {
                 width: 0px;
             }
-            
+
             .game-button {
                 width: 150px;
                 height: 150px;
@@ -25,6 +25,10 @@
                 margin: 5px;
                 padding: 0px;
                 overflow: hidden;
+                margin-top: 20px;
+                position: relative;
+                z-index: 1;
+                transition: transform 120ms ease, box-shadow 120ms ease;
             }
 
             .game-labels {
@@ -38,11 +42,18 @@
                 position: absolute;
                 white-space: normal;
                 overflow-wrap: break-word;
-                word-break: break-all;
+                margin-bottom: 50px;
+                background-color: rgb(15, 15, 15, 0.5);
+                overflow: hidden;
+                pointer-events: none;
+                z-index: 3;
+                transition: height 120ms ease;
             }
 
             .button-divs {
                 display: inline-block;
+                position: relative;
+                vertical-align: top;
             }
 
             .button-images {
@@ -59,6 +70,7 @@
                 height: 80px;
                 border: solid 2px #4d664d;
                 border-radius: 40px;
+                transition: transform 120ms ease, box-shadow 120ms ease;
             }
 
             #changelog img {
@@ -99,7 +111,15 @@
             new Button('/2048', '2048/logo2048.png', '2048'),
             new Button('/snake', 'snake/logoSnake.png', 'Snake'),
             new Button('/stack', 'stack/logoStack.png', 'Stack'),
-            new Button('/alchemy', 'alchemy/logoAlchemy.png', 'Alchemy')
+            new Button('/alchemy', 'alchemy/logoAlchemy.png', 'Alchemy'),
+            new Button('#', 'index/wip.png', 'Solitaire'),
+            new Button('#', 'index/wip.png', 'Pac-Man'),
+            new Button('#', 'index/postponed.png', 'Virtual Pet'),
+            new Button('#', 'index/postponed.png', 'Minesweeper'),
+            new Button('#', 'index/postponed.png', 'Tetris'),
+            new Button('#', 'index/postponed.png', 'Rock, Paper, Scissors'),
+            new Button('#', 'index/postponed.png', 'Tic Tac Toe'),
+            new Button('#', 'index/postponed.png', 'Uno'),
         ];
 
         buttons.forEach(button => {
@@ -133,9 +153,10 @@
 
             buttonElement.addEventListener('mouseover', () => {
                 buttonElement.style.transform = 'scale(0.95)';
-                buttonElement.style.boxShadow = '0 0 10px #4d664d';
-                labelBox.style.height = '100px';
+                buttonElement.style.boxShadow = '0 0 15px #4d664d';
                 label.innerHTML = fullText;
+                var expandedHeight = Math.max(20, labelBox.scrollHeight);
+                labelBox.style.height = expandedHeight + 'px';
             });
             buttonElement.addEventListener('mouseout', () => {
                 buttonElement.style.transform = 'scale(1)';
@@ -148,6 +169,16 @@
 
 
             document.body.appendChild(buttonDiv);
+        });
+
+        let changeLogButton = document.getElementById('changelog');
+        changeLogButton.addEventListener('mouseover', () => {
+            changeLogButton.style.transform = 'scale(0.95)';
+            changeLogButton.style.boxShadow = '0 0 15px #4d664d';
+        });
+        changeLogButton.addEventListener('mouseout', () => {
+            changeLogButton.style.transform = 'scale(1)';
+            changeLogButton.style.boxShadow = 'none';
         });
 
         // function gameLoop() {

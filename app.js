@@ -4,9 +4,11 @@ const express = require('express');
 const app = express();
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
-const { io } = require('socket.io-client');
+const { Server } = require('socket.io');
+const ioclient = require('socket.io-client');
 const sqlite3 = require('sqlite3').verbose();
 const SQLiteStore = require('connect-sqlite3')(session);
+const http = require('http');
 
 // DATABASE SETUP
 const db = new sqlite3.Database('./db/app.db', (err) => {
@@ -27,8 +29,8 @@ const API_KEY = process.env.API_KEY || 'your_api_key';
 // MIDDLEWARE
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
     store: new SQLiteStore({ db: 'sessions.db', dir: './db' }),
@@ -43,11 +45,14 @@ function isAuthenticated(req, res, next) {
 };
 
 // SOCKET.IO CLIENT TO AUTH SERVER
-const socket = io(AUTH_URL, {
+const socket = ioclient(AUTH_URL, {
     extraHeaders: {
         api: API_KEY
     }
 });
+
+const server = http.createServer(app);
+const io = new Server(server);
 
 // ROUTES
 app.get('/', isAuthenticated, (req, res) => {
@@ -63,6 +68,7 @@ app.get('/login', (req, res) => {
         let tokenData = jwt.decode(req.query.token);
         req.session.token = tokenData;
         req.session.user = tokenData.displayName;
+        
 
         // SAVE USER TO DATABSE IF NOT EXISTS
         db.run('INSERT OR IGNORE INTO users (username) VALUES (?)', [tokenData.displayName], function (err) {
@@ -222,7 +228,7 @@ app.get('/alchemy', isAuthenticated, (req, res) => {
                 <li class="innerli">On element drop: Detect if dropped on another element, the sidebar, or the game area. </li>
                 <li class="innerli">If dropped on another element, check if the combination of those 2 elements is valid. If true, create the new element on top of the 2 old ones, and check if the player has unlocked a new element. If they have, add it to the sidebar.</li>
                 <li class="innerli">If dropped on the sidebar from the game area, delete the element. If dropped on the game area, move the element there.</li>
-                </details>` 
+                </details>`
     }
     res.render('page', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.1', data: data });
 });
@@ -255,6 +261,18 @@ socket.on('connect', () => {
 
 socket.on('disconnect', () => {
     console.log('Disconnected from auth server');
+});
+
+socket.on('transaction', isAuthenticated, (req, res, pin, amount) => {
+    const data = {
+        from: req.session.token.id,
+        to: 128,
+        amount: amount,
+        pin: pin,
+        reason: "GameBar Transaction"
+    }
+
+    socket.emit('transferDigipogs', data);
 });
 
 socket.on('setClass', (classData) => {

@@ -205,7 +205,9 @@ app.get('/alchemy', isAuthenticated, (req, res) => {
                 <summary class="summaries">Changelog</summary>
                 <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
                 <div class="changelog-header">v1.0.0 - Alchemy Released - 3/06/2026</div>
-                <li class="innerli">Initial release of Alchemy on Gamebar</li>
+                <li class="innerli">Initial release of Alchemy on Gamebar, with 414 elements</li>
+                <div class="changelog-header">v1.0.1 - Small Update - 3/16/2026</div>
+                <li class="innerli">Added 10 new elements</li>
             </details>`,
         game: 'Alchemy',
         preview: `<img id="previewImg" src="/alchemy/alchemypreview.png" alt="Alchemy Preview" height="500">`,
@@ -222,7 +224,7 @@ app.get('/alchemy', isAuthenticated, (req, res) => {
                 <li class="innerli">On element drop: Detect if dropped on another element, the sidebar, or the game area. </li>
                 <li class="innerli">If dropped on another element, check if the combination of those 2 elements is valid. If true, create the new element on top of the 2 old ones, and check if the player has unlocked a new element. If they have, add it to the sidebar.</li>
                 <li class="innerli">If dropped on the sidebar from the game area, delete the element. If dropped on the game area, move the element there.</li>
-                </details>` 
+                </details>`
     }
     res.render('page', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.1', data: data });
 });
@@ -240,7 +242,7 @@ app.get('/game_stack', isAuthenticated, (req, res) => {
 });
 
 app.get('/game_alchemy', isAuthenticated, (req, res) => {
-    res.render('games/alchemy/game_alchemy', { user: req.session.user, pageName: 'Alchemy', version: 'v1.0.0' });
+    res.render('games/alchemy/game_alchemy', { user: req.session.user, pageName: 'Alchemy', version: 'v1.0.1' });
 });
 
 app.get('/logout', (req, res) => {

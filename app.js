@@ -65,7 +65,7 @@ app.get('/', isAuthenticated, (req, res) => {
 });
 
 app.get('/changes', isAuthenticated, (req, res) => {
-    res.render('changes', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.1' });
+    res.render('changes', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.2' });
 });
 
 app.get('/login', (req, res) => {
@@ -141,7 +141,7 @@ app.get('/2048', isAuthenticated, (req, res) => {
         
         </details>`
     }
-    res.render('page', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.1', data: data });
+    res.render('page', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.2', data: data });
 });
 
 app.get('/snake', isAuthenticated, (req, res) => {
@@ -179,7 +179,7 @@ app.get('/snake', isAuthenticated, (req, res) => {
                 
                 </details>`,
     }
-    res.render('page', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.1', data: data });
+    res.render('page', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.2', data: data });
 }
 );
 
@@ -204,7 +204,7 @@ app.get('/stack', isAuthenticated, (req, res) => {
                 <li class="innerli">[ ________ ] 'Space' - Drop the moving block</li>  
                 </details>`
     }
-    res.render('page', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.1', data: data });
+    res.render('page', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.2', data: data });
 }
 );
 
@@ -213,29 +213,34 @@ app.get('/alchemy', isAuthenticated, (req, res) => {
         description: `Based on the popular online game, this singleplayer game challenges player's problem solving and thinking skills (sort of), by challenging them to create new elements from 4 beginner ones. <br><br> This project is the fourth completed GameBar game, and my personal favorite - Chris`,
         developer: 'Christian Martin',
         changelog: `<details>
-            <summary class="summaries">Changelog</summary>
-            <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
-            <div class="changelog-header">v1.0.0 - Alchemy Released - 3/06/2026</div>
-            <li class="innerli">Initial release of Alchemy on Gamebar</li>
+                <summary class="summaries">Changelog</summary>
+                <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
+                <div class="changelog-header">v1.0.0 - Alchemy Released - 3/06/2026</div>
+                <li class="innerli">Initial release of Alchemy on Gamebar, with 414 elements</li>
+                <div class="changelog-header">v1.0.1 - Small Update - 3/16/2026</div>
+                <li class="innerli">Added 10 new elements</li>
+                <div class="changelog-header">v1.0.2 - Small Update - 3/17/2026</div>
+                <li class="innerli">Added 33 new elements</li>
+                <li class="innerli">Altered 2 element recipes</li>
             </details>`,
         game: 'Alchemy',
         preview: `<img id="previewImg" src="/alchemy/alchemypreview.png" alt="Alchemy Preview" height="500">`,
         playButton: `<button id="button" onclick="window.location.href='/game_alchemy'">Play</button>`,
         guide: `Drag and drop elements onto the game area to combine them. If the combination is correct, a new element will be created! You can also double click an element to spawn another one, and right click to delete it. Try to discover them all!`,
         specifics: ` <details>
-            <summary class="summaries">Specifics</summary>
-            <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
-            <h3>Keybinds:</h3>  
-            <li class="innerli">[LMB] 'click' - Click to quick drop, drag to move elements. Double click to duplicate an element</li>
-            <li class="innerli">[RMB] 'contextmenu' - Delete element</li>
-            <h3>Wordified Logic:</h3>
-            <li class="innerli">Upon start: Initialize game with 4 beginner elements, and establishing all locked elements in the sidebar</li>
-            <li class="innerli">On element drop: Detect if dropped on another element, the sidebar, or the game area. </li>
-            <li class="innerli">If dropped on another element, check if the combination of those 2 elements is valid. If true, create the new element on top of the 2 old ones, and check if the player has unlocked a new element. If they have, add it to the sidebar.</li>
-            <li class="innerli">If dropped on the sidebar from the game area, delete the element. If dropped on the game area, move the element there.</li>
-            </details>`
+                <summary class="summaries">Specifics</summary>
+                <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
+                <h3>Keybinds:</h3>  
+                <li class="innerli">[LMB] 'click' - Click to quick drop, drag to move elements. Double click to duplicate an element</li>
+                <li class="innerli">[RMB] 'contextmenu' - Delete element</li>
+                <h3>Wordified Logic:</h3>
+                <li class="innerli">Upon start: Initialize game with 4 beginner elements, and establishing all locked elements in the sidebar</li>
+                <li class="innerli">On element drop: Detect if dropped on another element, the sidebar, or the game area. </li>
+                <li class="innerli">If dropped on another element, check if the combination of those 2 elements is valid. If true, create the new element on top of the 2 old ones, and check if the player has unlocked a new element. If they have, add it to the sidebar.</li>
+                <li class="innerli">If dropped on the sidebar from the game area, delete the element. If dropped on the game area, move the element there.</li>
+                </details>`
     }
-    res.render('page', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.1', data: data });
+    res.render('page', { user: req.session.user, pageName: 'Gamebar', version: 'v0.2.2', data: data });
 });
 
 app.get('/game_2048', isAuthenticated, (req, res) => {
@@ -251,7 +256,7 @@ app.get('/game_stack', isAuthenticated, (req, res) => {
 });
 
 app.get('/game_alchemy', isAuthenticated, (req, res) => {
-    res.render('games/alchemy/game_alchemy', { user: req.session.user, pageName: 'Alchemy', version: 'v1.0.0' });
+    res.render('games/alchemy/game_alchemy', { user: req.session.user, pageName: 'Alchemy', version: 'v1.0.2' });
 });
 
 app.get('/logout', (req, res) => {

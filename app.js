@@ -116,6 +116,8 @@ app.get('/2048', isAuthenticated, (req, res) => {
         <li class="innerli">Initial release of 2048 on Gamebar</li>
         <div class="changelog-header">v1.0.1 - Optimization change - 2/14/2026</div>
         <li class="innerli">Removed unnecessary game loop</li>
+        <div class="changelog-header">v1.0.2 - Minor Change - 3/26/2026</div>
+        <li class="innerli">Removed false text</li>
         </details>`,
         game: '2048',
         preview: `<img id="previewImg" src="/2048/2048preview.png" alt="2048 preview" height="500">`,
@@ -249,6 +251,8 @@ app.get('/alchemy', isAuthenticated, (req, res) => {
                 <div class="changelog-header">v1.1.0 - Elements Patch - 3/24/2026</div>
                 <li class="innerli">Moved element definitions to server-side, preventing cheating through inspect elements</li>
                 <li class="innerli">Added 24 new elements</li>
+                <div class="changelog-header">v1.1.1 - Small Update - 3/26/2026</div>
+                <li class="innerli">Added 34 new elements</li>
             </details>`,
         game: 'Alchemy',
         preview: `<img id="previewImg" src="/alchemy/alchemypreview.png" alt="Alchemy Preview" height="500">`,
@@ -301,7 +305,7 @@ app.get('/wordle', isAuthenticated, (req, res) => {
 });
 
 app.get('/game_2048', isAuthenticated, (req, res) => {
-    res.render('games/2048/game_2048', { user: req.session.user, gp: req.session.gp, pageName: '2048', version: 'v1.1.1' });
+    res.render('games/2048/game_2048', { user: req.session.user, gp: req.session.gp, pageName: '2048', version: 'v1.0.2' });
 });
 
 app.get('/game_snake', isAuthenticated, (req, res) => {
@@ -313,7 +317,7 @@ app.get('/game_stack', isAuthenticated, (req, res) => {
 });
 
 app.get('/game_alchemy', isAuthenticated, (req, res) => {
-    res.render('games/alchemy/game_alchemy', { user: req.session.user, gp: req.session.gp, pageName: 'Alchemy', version: 'v1.1.0' });
+    res.render('games/alchemy/game_alchemy', { user: req.session.user, gp: req.session.gp, pageName: 'Alchemy', version: 'v1.1.1' });
 });
 
 app.get('/game_wordle', isAuthenticated, (req, res) => {
@@ -436,6 +440,7 @@ io.on('connection', (socket) => {
             new Element("Mountain", "⛰️ Mountain", "nature", ["Earth", "Earth"], true),
             new Element("Volcano", "🌋 Volcano", "nature", ["Lava", "Mountain"], true),
             new Element("Geyser", "💨 Geyser", "nature", ["Volcano", "Water"], true),
+            new Element("Air Bubble", "🫧 Air Bubble", "nature", ["Air", "Water"], true),
             new Element("Lake", "🌊 Lake", "nature", ["Water", "Water"], true),
             new Element("Sea", "🌊 Sea", "nature", ["Lake", "Lake"], true),
             new Element("Ocean", "🌊 Ocean", "nature", ["Sea", "Sea"], true),
@@ -474,6 +479,8 @@ io.on('connection', (socket) => {
             new Element("City", "🏙️ City", "humanInnovation", ["Town", "Town"], true),
             new Element("Skyscraper", "🏢 Skyscraper", "humanInnovation", ["Sky", "City"], true),
             new Element("Factory", "🏭 Factory", "humanInnovation", ["City", "Metal"], true),
+            new Element("Door", "🚪 Door", "humanInnovation", ["Wood", "House"], true),
+            new Element("Window", "🪟 Window", "humanInnovation", ["Glass", "House"], true),
             new Element("Leather", "👞 Leather", "humanInnovation", ["Cow", "Factory"], true),
             new Element("Book", "📕 Book", "humanInnovation", ["Leather", "Paper"], true),
             new Element("Library", "📚 Library", "humanInnovation", ["Book", "House"], true),
@@ -508,7 +515,6 @@ io.on('connection', (socket) => {
             new Element("Continent", "🌎 Continent", "nature", ["Country", "Earth"], true),
             new Element("Island", "🏝️ Island", "nature", ["Earth", "Ocean"], true),
             new Element("Palm Tree", "🌴 Palm Tree", "nature", ["Tree", "Island"], true),
-            new Element("Ant", "🐜 Ant", "animals", ["Colony", "Life"], true),
             new Element("Light", "💡 Light", "science", ["Sun", "Sky"], true),
             new Element("Flashlight", "🔦 Flashlight", "humanInnovation", ["Light", "Tool"], true),
             new Element("Lighthouse", "💡 Lighthouse", "humanInnovation", ["Light", "Ocean"], true),
@@ -593,6 +599,14 @@ io.on('connection', (socket) => {
             new Element("Rabbit", "🐇 Rabbit", "animals", ["Grass", "Mouse"], true),
             new Element("Squirrel", "🐿️ Squirrel", "animals", ["Tree", "Mouse"], true),
             new Element("Prairie Dog", "🐿️ Prairie Dog", "animals", ["Prairie", "Mouse"], true),
+            new Element("Bug", "🐞 Bug", "animals", ["Plant", "Life"], true),
+            new Element("Ant", "🐜 Ant", "animals", ["Colony", "Bug"], true),
+            new Element("Fly", "🪰 Fly", "animals", ["Bug", "Air"], true),
+            new Element("Butterfly", "🦋 Butterfly", "animals", ["Fly", "Flower"], true),
+            new Element("Moth", "🦋 Moth", "animals", ["Butterfly", "Darkness"], true),
+            new Element("Silk Moth", "🦋 Silk Moth", "animals", ["Moth", "Tree"], true),
+            new Element("Silk", "🧵 Silk", "humanInnovation", ["Silk Moth", "Human"], true),
+            new Element("Spider", "🕷️ Spider", "animals", ["Bug", "Silk"], true),
             new Element("Farmer", "🧑‍🌾 Farmer", "occupations", ["Human", "Grassland"], true),
             new Element("Corn", "🌽 Corn", "nature", ["Farmer", "Grassland"], true),
             new Element("Wheat", "🌾 Wheat", "nature", ["Farmer", "Grass"], true),
@@ -802,6 +816,7 @@ io.on('connection', (socket) => {
             new Element("Explosion", "💥 Explosion", "science", ["Bomb", "Fire"], true),
             new Element("Atomic Bomb", "☢️ Atomic Bomb", "humanInnovation", ["Bomb", "Uranium"], true),
             new Element("Nuclear Blast", "💥 Nuclear Blast", "science", ["Atomic Bomb", "Explosion"], true),
+            new Element("Apocalypse", "💥 Apocalypse", "science", ["Atomic Bomb", "Earth"], true),
             new Element("Fighter Jet", "✈️ Fighter Jet", "humanInnovation", ["Airplane", "Gun"], true),
             new Element("Bomber Plane", "✈️ Bomber Plane", "humanInnovation", ["Airplane", "Bomb"], true),
             new Element("Intercontinental Ballistic Missile", "🚀 Intercontinental Ballistic Missile", "humanInnovation", ["Rocket", "Atomic Bomb"], true),
@@ -849,6 +864,7 @@ io.on('connection', (socket) => {
             new Element("Television", "📺 Television", "media", ["Radio", "Light"], true),
             new Element("Movie", "📺 Movie", "media", ["Television", "Media"], true),
             new Element("TV Show", "📺 TV Show", "media", ["Movie", "Entertainment"], true),
+            new Element("Story", "📖 Story", "media", ["Book", "Entertainment"], true),
             new Element("Computer", "💻 Computer", "humanInnovation", ["Electricity", "Knowledge"], true),
             new Element("Music", "🎵 Music", "media", ["Sound", "Entertainment"], true),
             new Element("Phone", "📱 Phone", "humanInnovation", ["Sound", "Electricity"], true),
@@ -873,6 +889,8 @@ io.on('connection', (socket) => {
             new Element("Poppy Playtime", "🧸 Poppy Playtime", "media", ["Horror Game", "Toy"], true),
             new Element("Poppy", "🧸 Poppy", "media", ["Poppy Playtime", "Doll"], true),
             new Element("Harley Sawyer", "🧠 Harley Sawyer", "media", ["Poppy Playtime", "Doctor"], true),
+            new Element("The Prototype", "👹 The Prototype", "media", ["Poppy Playtime", "Robot"], true),
+            new Element("Mommy Long Legs", "🧸 Mommy Long Legs", "media", ["Poppy Playtime", "Spider"], true),
             new Element("Bendy and the Ink Machine", "😈 Bendy and the Ink Machine", "media", ["Horror Game", "Ink"], true),
             new Element("9/11", "✈️ 9/11", "notableFigures", ["Airplane", "Skyscraper"], true),
             new Element("Andrew Carnegie", "🔨 Andrew Carnegie", "notableFigures", ["Steel", "Idea"], true),
@@ -905,6 +923,26 @@ io.on('connection', (socket) => {
             new Element("Graphene", "🪨 Graphene", "science", ["Graphite", "Paper"], true),
             new Element("Steven Universe", "💎 Steven Universe", "media", ["Gem", "Human"], true),
             new Element("Crystal Gems", "💎 Crystal Gems", "media", ["Gem", "Space"], true),
+            new Element("Mirror", "🪞 Mirror", "humanInnovation", ["Glass", "Tool"], true),
+            new Element("Opposite", "🔄 Opposite", "science", ["Mirror", "Light"], true),
+            new Element("Darkness", "🌑 Darkness", "nature", ["Opposite", "Light"], true),
+            new Element("Portal", "🌀 Portal", "science", ["Door", "Mirror"], true),
+            new Element("Portal 1", "🌀 Portal 1", "media", ["Portal", "Video Game"], true),
+            new Element("Portal 2", "🌀 Portal 2", "media", ["Portal 1", "Portal 1"], true),
+            new Element("GLaDOS", "🧠 GLaDOS", "media", ["Portal 1", "AI"], true),
+            new Element("Wheatley", "🧿 Wheatley", "media", ["Portal 2", "Robot"], true),
+            new Element("Space Odyssey", "🚀Space Odyssey", "media", ["AI", "Space"], true),
+            new Element("HAL 9000", "🧠 HAL 9000", "media", ["Space Odyssey", "AI"], true),
+            new Element("I Have No Mouth, and I Must Scream", "😱 I Have No Mouth, and I Must Scream", "media", ["AI", "Story"], true),
+            new Element("AM", "🧠 AM", "media", ["I Have No Mouth, and I Must Scream", "AI"], true),
+            new Element("AI", "🤖 AI", "science", ["Electricity", "Knowledge"], true),
+            new Element("Robot", "🤖 Robot", "humanInnovation", ["AI", "Metal"], true),
+            new Element("Camping", "⛺ Camping", "humanInnovation", ["Forest", "Entertainment"], true),
+            new Element("Tent", "⛺ Tent", "humanInnovation", ["Camping", "House"], true),
+            new Element("Circus", "🎪 Circus", "humanInnovation", ["Tent", "Entertainment"], true),
+            new Element("The Amazing Digital Circus", "🎪 The Amazing Digital Circus", "media", ["Circus", "Computer"], true),
+            new Element("Caine", "🔴 Caine", "media", ["The Amazing Digital Circus", "AI"], true),
+            new Element("Bubble", "🫧 Bubble", "media", ["The Amazing Digital Circus", "Air Bubble"], true),
         ];
 
         socket.emit('elementsData', returnDict);

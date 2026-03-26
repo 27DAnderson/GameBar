@@ -132,13 +132,13 @@ app.get('/2048', isAuthenticated, (req, res) => {
         <li class="innerli">[◄] 'ArrowLeft' - Move tiles left</li>
         <li class="innerli">[►] 'ArrowRight' - Move tiles right</li>
         
-        <h3>Tiles:</h3>
-        <img src="/2048/square_2.png" class="tileImgs"><img src="/2048/square_4.png" class="tileImgs"><img
-        src="/2048/square_8.png" class="tileImgs"><img src="/2048/square_16.png" class="tileImgs"><img
-        src="/2048/square_32.png" class="tileImgs"><img src="/2048/square_64.png" class="tileImgs"><img
-        src="/2048/square_128.png" class="tileImgs"><img src="/2048/square_256.png" class="tileImgs"><img
-        src="/2048/square_512.png" class="tileImgs"><img src="/2048/square_1024.png" class="tileImgs"><img
-        src="/2048/square_2048.png" class="tileImgs">
+        <h3>Sprites:</h3>
+        <img src="/2048/square_2.png" class="sprites"><img src="/2048/square_4.png" class="sprites"><img
+        src="/2048/square_8.png" class="sprites"><img src="/2048/square_16.png" class="sprites"><img
+        src="/2048/square_32.png" class="sprites"><img src="/2048/square_64.png" class="sprites"><img
+        src="/2048/square_128.png" class="sprites"><img src="/2048/square_256.png" class="sprites"><img
+        src="/2048/square_512.png" class="sprites"><img src="/2048/square_1024.png" class="sprites"><img
+        src="/2048/square_2048.png" class="sprites">
         
         <h3>Wordified Logic:</h3>
         <li class="innerli">Upon start: Game loop begins, canvas is drawn and redrawn every frame (background,

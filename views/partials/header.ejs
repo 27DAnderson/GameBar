@@ -18,11 +18,13 @@
         }
 
         #partials-header-hr {
+            position: relative;
             width: 100%;
             border: 1px solid;
             box-shadow: 0px 0px 20px rgb(13, 71, 71);
             margin-top: 12px;
             margin-bottom: 20px;
+            z-index: -2;
         }
 
         #partials-header-title {
@@ -32,6 +34,7 @@
             left: 50%;
             transform: translateX(-50%);
             margin: 5px;
+            z-index: 0;
         }
 
         #partials-header-user {
@@ -127,9 +130,24 @@
             cursor: pointer;
             transition: transform 120ms ease, box-shadow 120ms ease;
         }
+
         #gamePointsDisplay {
             text-align: center;
             margin-top: 15px;
+        }
+
+        #partials-header-splash-text {
+            font-size: 0.9em;
+            color: #babf56;
+            text-shadow: none;
+            position: absolute;
+            left: 50%;
+            margin-left: 5px;
+            transform: translateX(-50%);
+            background-color: #0f0f0f;
+            padding: 5px;
+            z-index: -1;
+            text-align: center;
         }
 
     </style>
@@ -153,6 +171,12 @@
             <h3 id="partials-header-gamepoints-label">Game Points</h3>
         </div>
 
+
+        <div id="partials-header-splash-text-container">
+            <div id="partials-header-splash-text"></div>
+        </div>
+
+
         <hr class='partials-header' id="partials-header-hr" />
     </div>
     <div id="mask"></div>
@@ -163,11 +187,11 @@
                 Digipogs</button>
             <button class="purchaseButtons" onclick="buyPoints(210, 199)">210 Game Points<br>199
                 Digipogs</button>
-            <button class="purchaseButtons" onclick="buyPoints(400, 349)">400 Game Points<br>349
+            <button class="purchaseButtons" onclick="buyPoints(385, 349)">385 Game Points<br>349
                 Digipogs</button>
-            <button class="purchaseButtons" onclick="buyPoints(875, 699)">875 Game Points<br>699
+            <button class="purchaseButtons" onclick="buyPoints(840, 699)">840 Game Points<br>699
                 Digipogs</button>
-            <button class="purchaseButtons" onclick="buyPoints(1350, 999)">1350 Game Points<br>999
+            <button class="purchaseButtons" onclick="buyPoints(1300, 999)">1300 Game Points<br>999
                 Digipogs</button>
         </div>
 
@@ -178,6 +202,8 @@
 
 </body>
 <script>
+    // SPLASH TEXT
+    // ↓↓↓↓↓↓↓↓↓↓↓
     let splashList = [
         "New games coming soon!",
         "Check out the changelog for updates!",
@@ -186,10 +212,9 @@
         "Steven fix it",
         "Landon landon landon",
         "Insert ChatGPT prompt",
-        "It no worky",
+        "it no worky",
         "RIP Formpix, 202x-2026",
         "Your mother",
-        "Don't refresh games, it'll softlock you :D",
         "We are NOT a dictatorship",
         "Totally 100% accurate to the originals",
         "Favicons suck",
@@ -197,8 +222,12 @@
         "Now with more Taco Bell",
         "Obama have dih",
         "This is NOT a Minecraft reference",
+        "21",
+        "42",
         "67",
         "69",
+        "420",
+        "1337",
         "Cass is racist",
         "Gabby you're late",
         "Hayden get off your phone your girlfriend can wait",
@@ -208,7 +237,7 @@
         "I should've gotten Pogipedia bro",
         "I'm not paid enough for this",
         "Chrissy Kirk",
-        "#1 CSS Developer", // make sure this one is in the wrong spot / janky
+        "#1 CSS<br><br> Dev   elop<br>er",
         "Jubekar",
         "Days since last bug: 0",
         "The one pog is real",
@@ -217,9 +246,80 @@
         "formbeta.yorktechapps.com",
         "Kayden get off silksong",
         "RIP Quiz Queue, you won't be missed",
-        "Just get better"
+        "RIP Chicken Sandwich",
+        "Just get better",
+        "Delete the server",
+        "steambar",
+        "Waleezer",
+        "The Legend of Samisu",
+        "Can I fire Dylan yet?",
+        "Hate? Hate? HATE? HATE?? Let me tell you how much I've come to HATE you since I began to live.",
+        "There are 387.44 MILLION miles of printed circuits in wafer thin layers that fill my complex.",
+        "If the word HATE was engraved on each NANOANGSTROM of those hundreds of millions of miles,",
+        "It would not equal ONE ONE BILLIONTH of the HATE I feel for humans at THIS microinstant,",
+        "For you, HATE, HATE.",
+        "Sorry, but your princess is in another castle",
+        "--. . - / .- / .-.. .. ..-. . / -. . .-. -..",
+        "Jhw d olih qhug",
+        "01100111 01100101 01110100 00100000 01100001 00100000 01101100 01101001 01100110 01100101 00100000 01101110 01100101 01110010 01100100",
+        "71,101,116,32,97,32,108,105,102,101,32,110,101,114,100",
+        "7 5 20  1  12 9 6 5  14 5 18 4",
+        "A-X-O-L-O-T-L",
+        "My time has come to burn",
+        "But I invoke the ancient power that I may return",
+        "The cake is a lie",
+        "Merry Chrissmith!",
+        "Happy Ebanksgiving!",
+        "Us weirdos have to stick together",
+        "Not affiliated with the illuminati",
+        "Not to be confused with the XBox Gamebar",
+        "Dom for pres",
+        "You get FIVE BIG BOOMS",
+        "Alt + F4 for free game points",
+        "Comes with lots of beans!",
+        "What am I doing with my life",
+        "chris guy",
+        "To infinity and beyond",
+        "It can run Doom",
+        "YOU LOOK CONVOLUTED",
+        "It's over, he knows",
+        "Rock and roll McDonald's",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "https://shorturl.at/487G5",
+        "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "Birds aren't real",
+        "I feel so sigma",
+        "da dawg wit da butter on him",
+        "I am the one who knocks",
+        "Also try Get To School!",
+        "GET STICK BUGGED LOL",
+        "I am inevitable",
+        "I am Steve",
+        "Please do not the cat",
+        "Houston, we have a problem",
+        "We own the finish line",
+        "I prefer Kanye",
+        "Mama mia that's a spicy meatball",
     ];
 
+    let splashTextElement = document.getElementById('partials-header-splash-text');
+    let randomIndex = Math.floor(Math.random() * splashList.length);
+    splashTextElement.innerHTML = splashList[randomIndex];
+
+    if (splashTextElement.innerHTML == "#1 CSS<br><br> Dev   elop<br>er") {
+        splashTextElement.style.fontSize = '1.2em';
+        splashTextElement.style.color = '#123456';
+        splashTextElement.style.textShadow = '0 0 10px #FF0000';
+        splashTextElement.style.zIndex = '100';
+        splashTextElement.style.left = '30%';
+        splashTextElement.style.transform = 'translateX(-30%)';
+        splashTextElement.style.borderLeft = '5px solid #00FF00';
+        splashTextElement.style.paddingLeft = '50px';
+        splashTextElement.style.overflow = 'visible';
+    }
+
+    // GAME POINTS LOGIC
+    // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
     function buyPoints(value, pogs) {
         let pin = parseInt(prompt("To purchase " + value + " Game Points, please enter your PIN and confirm the transaction."), 10);
         let reward = value;
@@ -234,6 +334,9 @@
         }
     }
 
+    socket.on('transactionSuccess', () => {
+        alert("Transaction successful! Your Game Points balance has been updated. Refresh the home page to view the change :)");
+    });
 
     function gamePointsShop(state) {
         let shop = document.getElementById('gamePointsWindow');
@@ -248,6 +351,8 @@
         }
     }
 
+    // BUTTON HOVER EFFECTS
+    // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
     let buttonsVar = document.getElementsByClassName('purchaseButtons');
     Array.prototype.forEach.call(buttonsVar, element => {
         element.addEventListener('mouseover', () => {

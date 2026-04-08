@@ -84,7 +84,7 @@
                 float: right;
             }
 
-            .tileImgs {
+            .sprites {
                 width: 30px;
                 height: 30px;
                 margin: 2px;
@@ -167,6 +167,10 @@
 
         socket.on('relocate', () => {
             window.location.href = `/game_${'<%- data.game %>'.toLowerCase()}`;
+        });
+
+        socket.on('insufficientFunds', () => {
+            alert('You do not have enough game points to play this game.');
         });
     </script>
 

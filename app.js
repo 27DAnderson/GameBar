@@ -352,7 +352,7 @@ app.get('/game_alchemy', isAuthenticated, (req, res) => {
         // if the user hasn't paid, send user back to home page
         res.render('index', { user: req.session.user, gp: req.session.gp, pageName: 'Gamebar', version: 'v0.3.6' });
     } else {
-        res.render('games/alchemy/game_alchemy', { user: req.session.user, gp: req.session.gp, pageName: 'Alchemy', version: 'v1.1.1' });
+        res.render('games/alchemy/game_alchemy', { user: req.session.user, gp: req.session.gp, pageName: 'Alchemy', version: 'v1.2.0' });
     }
 });
 

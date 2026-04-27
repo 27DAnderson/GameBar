@@ -9,8 +9,10 @@ Programming project intended to have various solo and multiplayer games incorpor
 ### Modules
 To install the project's required dependencies, copy the following command and paste it in the terminal:
 > npm install connect-sqlite3 datamuse dotenv ejs express express-session jsonwebtoken multer nodemon socket.io socket.io-client sqlite3 winston
+
 This should create package.json and package-lock.json files.
 Under dependencies, you should see something like this:
+
 >  "dependencies": {
 >    "connect-sqlite3": "^latest-version",
 >    "datamuse": "^latest-version",

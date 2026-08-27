@@ -1,0 +1,77 @@
+<%- include('../../partials/header') %>
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gamebar - Tetris</title>
+        <style>
+            #gameCanvas {
+                height: 75vmin;
+                width: 75vmin/2;
+                position: absolute;
+                top: 52%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                outline: 1px solid #4d664d;
+            }
+        </style>
+    </head>
+    <%- include('../../partials/gameSessions') %>
+
+        <body>
+            <canvas id="gameCanvas" width="10000" height="20000" style="border:1px solid #d3d3d3;"></canvas>
+        </body>
+        <script>
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+
+            const tetris0 = new Image();
+            tetris0.src = '/tetris/tetrisNES0.png';
+            const tetris1 = new Image();
+            tetris1.src = '/tetris/tetrisNES1.png';
+            const tetris2 = new Image();
+            tetris2.src = '/tetris/tetrisNES2.png';
+            const tetris3 = new Image();
+            tetris3.src = '/tetris/black.png';
+
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            const board = Array.from({ length: 20 }, () => Array(10).fill(1));
+            tetris3.onload = () => {
+                for (let y = 0; y < board.length; y++) {
+                    for (let x = 0; x < board[y].length; x++) {
+                        if (board[y][x] === 1) {
+                            ctx.drawImage(tetris3, x * 1000, y * 1000, 1000, 1000);
+                        }
+                    }
+                }
+            };
+
+            tetris3.onload = () => {
+                for (let y = 0; y < board.length; y++) {
+                    for (let x = 0; x < board[y].length; x++) {
+                        if (board[y][x] === 1) {
+                            const tetris = [tetris0, tetris1, tetris2, tetris3][Math.floor(Math.random() * 4)];
+                            ctx.drawImage(tetris, x * 1000, y * 1000, 1000, 1000);
+                        }
+                    }
+                }
+            };
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowLeft') {
+                    console.log('Left arrow pressed');
+                } else if (event.key === 'ArrowRight') {
+                    console.log('Right arrow pressed');
+                } else if (event.key === 'ArrowDown') {
+                    console.log('Down arrow pressed');
+                } else if (event.key === 'ArrowUp') {
+                    console.log('Up arrow pressed');
+                }
+            });
+        </script>
+
+    </html>

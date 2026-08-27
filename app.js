@@ -428,6 +428,32 @@ app.get('/solitaire', isAuthenticated, (req, res) => {
     res.render('page', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Gamebar', version: 'v1.1.4', data: data });
 });
 
+app.get('/tetris', isAuthenticated, (req, res) => {
+    const data = {
+        description: `The game of tetris`,
+        developer: 'Dylan Anderson',
+        changelog: `<details>
+        <summary class="summaries">Changelog</summary>
+        <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
+        <div class="changelog-header">v1.0.0 - Tetris Released - 8/21/2026</div>
+        <li class="innerli">Initial release of Tetris on Gamebar</li>
+        </details>`,
+        game: 'Tetris',
+        preview: `<img id="previewImg" src="/tetris/tetrispreview.png" alt="Tetris Preview" height="500">`,
+        playButton: `<button id="button" onclick="play()">Play</button>`,
+        guide: '',
+        specifics: `<details>
+        <summary class="summaries">Specifics</summary>
+        <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
+                <h3>Wordified Logic:</h3>
+                <li class="innerli"></li>
+                <li class="innerli"></li>
+                </details>
+        </details>`
+    };
+    res.render('page', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Gamebar', version: 'v1.1.4', data: data });
+});
+
 app.get('/game_2048', isAuthenticated, (req, res) => {
     if (!paid) {
         // if the user hasn't paid, send user back to home page
@@ -488,6 +514,15 @@ app.get('/game_solitaire', isAuthenticated, (req, res) => {
         res.redirect('/');
     } else {
         res.render('games/solitaire/game_solitaire', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Solitaire', version: 'v1.0.0' });
+    }
+});
+
+app.get('/game_tetris', isAuthenticated, (req, res) => {
+    if (!paid) {
+        // if the user hasn't paid, send user back to home page
+        res.redirect('/');
+    } else {
+        res.render('games/tetris/game_tetris', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Tetris', version: 'v1.0.0' });
     }
 });
 
@@ -569,6 +604,7 @@ io.on('connection', (socket) => {
             'Wordle': 50,
             'Fruit Crush': 75,
             'Solitaire': 115,
+            'Tetris': 90
         };
 
         let user = data.user;

@@ -66,19 +66,24 @@
                         move = 0;
                     }
                 }
-                if (y >= 18 && !tetris === piece7) {
-                    spawn = true;
-                } else if (y >= 19) {
-                    spawn = true;
-                }
-                if (x < 0) {
-                    x = 0;
-                }
-                if (x > 6 && tetris === piece7) {
-                    x = 6;
-                } else if (x > 7) {
-                    x = 7;
-                }
+
+
+
+                // if (y >= 18 && !tetris === piece7) {
+                //     spawn = true;
+                // } else if (y >= 19) {
+                //     spawn = true;
+                // }
+                // if (x < 0 && !tetris !== piece4) {
+                //     x = 0;
+                // } else if (x < -1) {
+                //     x = -1;
+                // }
+                // if (x > 6 && tetris === piece7) {
+                //     x = 6;
+                // } else if (x > 7) {
+                //     x = 7;
+                // }
                 ctx.drawImage(tetris, x * 100, y * 100, 100 * 4, 100 * 2);
 
                 requestAnimationFrame(gameloop);

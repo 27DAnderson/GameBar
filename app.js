@@ -428,6 +428,32 @@ app.get('/solitaire', isAuthenticated, (req, res) => {
     res.render('page', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Gamebar', version: 'v1.1.4', data: data });
 });
 
+app.get('/flappyBird', isAuthenticated, (req, res) => {
+    const data = {
+        description: `Flappy Bird`,
+        developer: 'Dylan Anderson',
+        changelog: `<details>
+        <summary class="summaries">Changelog</summary>
+        <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
+        <div class="changelog-header">v1.0.0 - Flappy Bird Released - 8/28/2026</div>
+        <li class="innerli">Initial release of Flappy Bird on Gamebar</li>
+        </details>`,
+        game: 'Flappy Bird',
+        preview: `<img id="previewImg" src="/flappyBird/flappybirdpreview.png" alt="Flappy Bird Preview" height="500">`,
+        playButton: `<button id="button" onclick="play()">Play</button>`,
+        guide: '',
+        specifics: `<details>
+        <summary class="summaries">Specifics</summary>
+        <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
+                <h3>Wordified Logic:</h3>
+                <li class="innerli"></li>
+                <li class="innerli"></li>
+                </details>
+        </details>`
+    };
+    res.render('page', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Gamebar', version: 'v1.0.0', data: data });
+});
+
 app.get('/game_2048', isAuthenticated, (req, res) => {
     if (!paid) {
         // if the user hasn't paid, send user back to home page
@@ -488,6 +514,15 @@ app.get('/game_solitaire', isAuthenticated, (req, res) => {
         res.redirect('/');
     } else {
         res.render('games/solitaire/game_solitaire', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Solitaire', version: 'v1.0.0' });
+    }
+});
+
+app.get('/game_flappy_bird', isAuthenticated, (req, res) => {
+    if (!paid) {
+        // if the user hasn't paid, send user back to home page
+        res.redirect('/');
+    } else {
+        res.render('games/flappyBird/game_flappy_bird', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Flappy Bird', version: 'v1.0.0' });
     }
 });
 
@@ -569,6 +604,7 @@ io.on('connection', (socket) => {
             'Wordle': 50,
             'Fruit Crush': 75,
             'Solitaire': 115,
+            'Flappy Bird': 100,
         };
 
         let user = data.user;

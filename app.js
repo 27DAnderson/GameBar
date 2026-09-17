@@ -430,24 +430,28 @@ app.get('/solitaire', isAuthenticated, (req, res) => {
 
 app.get('/flappyBird', isAuthenticated, (req, res) => {
     const data = {
-        description: `Flappy Bird`,
+        description: `Based on the original mobile game that was removed from the app store, this singleplayer game challenges a player's reaction time and timing skills, as they attempt to navigate a bird through pipes without running into them. <br><br> This is the 8th completed Gamebar game and the second game completed by Dylan`,
         developer: 'Dylan Anderson',
         changelog: `<details>
         <summary class="summaries">Changelog</summary>
         <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
-        <div class="changelog-header">v1.0.0 - Flappy Bird Released - 8/28/2026</div>
+        <div class="changelog-header">v1.0.0 - Flappy Bird Released - 9/18/2026</div>
         <li class="innerli">Initial release of Flappy Bird on Gamebar</li>
         </details>`,
         game: 'Flappy Bird',
         preview: `<img id="previewImg" src="/flappyBird/flappybirdpreview.png" alt="Flappy Bird Preview" height="500">`,
         playButton: `<button id="button" onclick="play()">Play</button>`,
-        guide: '',
+        guide: 'All you have to do is click the spacebar! You can however also use the up arrow, the W key, or click the mouse. Just don\'t hit the pipes or the top or bottom. <br><br> There is one minor little secret to uncover also... ',
         specifics: `<details>
         <summary class="summaries">Specifics</summary>
         <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
                 <h3>Wordified Logic:</h3>
-                <li class="innerli"></li>
-                <li class="innerli"></li>
+                <li class="innerli">Game waits for a spacebar press before starting</li>
+                <li class="innerli">That triggers the game loop to begin, canvas is drawn and redrawn every frame</li>
+                <li class="innerli">The pipes are spawned, using a class (thanks to Truit), with a randomized vertical position, and the same 3 are recycled</li>
+                <li class="innerli">The bird is drawn, pressing space increases the yvelocity, and the rotation of it is based off of the yvelocity</li>
+                <li class="innerli">The score increases by 1 after each pipe is passed</li>
+                <li class="innerli">If the bird's hitbox touches the pipe's hitbox or the top or bottom of the canvas the game ends</li>
                 </details>
         </details>`
     };

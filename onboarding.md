@@ -9,9 +9,11 @@
 │   ├── \2048       ### Sprites for the game 2048
 │   ├── \alchemy    ### Sprites for the game Alchemy
 │   ├── \fruitCrush    ### Sprites for the game Fruit Crush
-│   ├── \index    ### Images for the Gamebar home page
+│   ├── \index    ### Images for the Gamebar home page & header
 │   ├── \snake    ### Sprites for the game Snake
+│   ├── \solitaire    ### Sprites for the game Solitaire   
 │   ├── \stack    ### Sprites for the game Stack
+│   ├── \sudoku    ### Sprites for the game Sudoku
 │   ├── \variety    ### For sprites that are usable anywhere
 |   |   ├── \deck     ### Sprites for a deck of cards
 |   │   └── \fruits    ### Sprites for different fruits
@@ -30,8 +32,12 @@
 │   |   |   └── game_frust_crush.ejs    ### The view for the game Fruit Crush
 │   |   ├── \snake
 │   |   |   └── game_2048.ejs    ### The view for the game Snake
+│   |   ├── \solitaire
+│   |   |   └── game_2048.ejs    ### The view for the game Soliitaire
 │   |   ├── \stack
 │   |   |   └── game_2048.ejs    ### The view for the game Stack
+│   |   ├── \sudoku
+│   |   |   └── game_2048.ejs    ### The view for the game Sudoku
 │   |   ├── \virtualPet
 │   |   |   └── game_2048.ejs    ### The view for the game Virtual Pet (currently delayed)
 │   |   ├── \wordle

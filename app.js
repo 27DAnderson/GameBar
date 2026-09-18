@@ -477,6 +477,40 @@ app.get('/sudoku', isAuthenticated, (req, res) => {
     res.render('page', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Gamebar', version: 'v1.1.8', data: data });
 });
 
+app.get('/minesweeper', isAuthenticated, (req, res) => {
+    const data = {
+        description: `Based on the classic computer game, this singleplayer game challenges the player's logic and problem solving skills, as they try to clear a minefield without detonating any mines. <br><br> This project is the ninth completed Gamebar game, and the second one completed by Truit!`,
+        developer: 'Truit Elwell',
+        changelog: `<details>
+        <summary class="summaries">Changelog</summary>
+        <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">
+        <div class="changelog-header">v1.0.0 - Mineswweeper Released - 9/18/2026</div>
+        <li class="innerli">Initial release of Minesweeper on Gamebar</li>
+        </details>`,
+        game: 'Minesweeper',
+        preview: `<img id="previewImg" src="/minesweeper/minesweeperpreview.png" alt="Minesweeper Preview" height="500">`,
+        playButton: `<button id="button" onclick="play()">Play</button>`,
+        guide: 'Click on any tile to start the game. If you click on a mine, you lose. However, if you click on a safe tile, it will reveal a number indicating how many mines are adjacent to that tile. Use logic and deduction to figure out where the mines are and clear the board without detonating any mines!<br><br>You can right click to flag a tile as a mine, and left click to reveal a tile. Good luck!',
+        specifics: `<details>
+        <summary class="summaries">Specifics</summary>
+        <hr style="border: solid 1px #4d664d; margin-top: 5px; margin-bottom: 10px;">     
+            <h3>Keybinds:</h3>
+                <li class="innerli">[LMB] 'click' - Reveal a tile</li> 
+                <li class="innerli">[RMB] 'contextmenu' - Flag a tile as a mine</li>
+                <li class="innerli">[LMB] + [RMB] 'click' + 'contextmenu' - Break all adjacent tiles, if # of flags is equal to the number of adjacent mines</li>          
+                <h3>Wordified Logic:</h3>
+                <li class="innerli">The player clicks anywhere on the grid to generate the puzzle. the puzzle is generated with a 9x9 square around the mouse
+                <li class="innerli">Click a space breaks it and all of its neighbors, unless the space has adjacent mines
+                <li class="innerli">Safe spaces adjacent to mines display how many mines are in proximity to it
+                <li class="innerli">If you click a mine, you lose. Otherwise, game continues until all safe spaces are revealed, at which point you win.
+                </li>
+                </details>
+        </details>`
+    };
+    res.render('page', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Gamebar', version: 'v1.1.8', data: data });
+});
+
+
 app.get('/game_2048', isAuthenticated, (req, res) => {
     if (!paid) {
         // if the user hasn't paid, send user back to home page
@@ -546,6 +580,15 @@ app.get('/game_sudoku', isAuthenticated, (req, res) => {
         res.redirect('/');
     } else {
         res.render('games/sudoku/game_sudoku', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Sudoku', version: 'v1.0.1' });
+    }
+});
+
+app.get('/game_minesweeper', isAuthenticated, (req, res) => {
+    if (!paid) {
+        // if the user hasn't paid, send user back to home page
+        res.redirect('/');
+    } else {
+        res.render('games/minesweeper/game_minesweeper', { user: req.session.user, gp: req.session.gp, gkey: req.session.gkey, pageName: 'Minesweeper', version: 'v1.0.0' });
     }
 });
 
@@ -620,14 +663,15 @@ io.on('connection', (socket) => {
     });
     socket.on('playGame', (data) => {
         prices = {
-            '2048': 100,
-            'Snake': 70,
-            'Stack': 40,
-            'Alchemy': 1200,
+            '2048': 150,
+            'Snake': 125,
+            'Stack': 65,
+            'Alchemy': 1500,
             'Wordle': 50,
             'Fruit Crush': 100,
-            'Solitaire': 115,
-            'Sudoku': 85,
+            'Solitaire': 200,
+            'Sudoku': 100,
+            'Minesweeper': 100,
         };
 
         let user = data.user;
